@@ -1,0 +1,45 @@
+.bg{
+  margin-top: 60px;
+  height: 1000px;
+  width:100%;
+  background-image:url('../assets/pictures/RWBYatAtlas.png');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.toolbar img {
+  border-radius: 50%;
+}
+#intro {
+  text-align: center;
+}
+
+#intro #logo{
+  margin-top: 120px;
+  border-radius: 50%;
+  height: 350px;
+  width: auto;
+  box-shadow: 0 0 30px 5px #0d1f31;
+}
+
+footer {
+  height: 1000px;
+
+}
+
+.cards {
+  margin-top: 100px;
+
+}
+
+body,
+.content,
+footer{
+  background-color: darkslategray;
+  color: white;
+}
+
+.toolbar button {
+  margin: 0 5px;
+}

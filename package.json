@@ -1,0 +1,11 @@
+{
+  "name": "website",
+  "version": "0.1.0",
+  "description": "A website for the RWBY Fan Server on Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonas Gonka, Lindsay Nickl",
+  "license": "ISC"
+}
