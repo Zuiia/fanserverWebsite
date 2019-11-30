@@ -1,0 +1,22 @@
+.card {
+  margin: 40px 20px  !important;
+  background-color: #0d1f31;
+  width: 400px;
+  flex: 1 0 calc(33% - 40px);
+  border-radius: 2% !important;
+}
+
+.card-header img {
+  border-radius: 50%;
+  height: 100px;
+  margin-top: -70px;
+}
+
+.card-header h5 {
+  text-align: right;
+  float: right;
+}
+
+.card-group {
+  margin-top: 50px;
+}
