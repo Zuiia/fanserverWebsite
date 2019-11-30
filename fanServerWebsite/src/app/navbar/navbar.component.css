@@ -1,0 +1,25 @@
+.navbar {
+  background-color: darkslategray;
+  color: white;
+  font-size: large;
+}
+
+.navbar img {
+  border-radius: 50%;
+}
+
+.buttons li {
+  margin: 0 7px;
+}
+
+.user {
+  margin-left: 50px;
+}
+
+.user span {
+  padding: 10px 0;
+}
+
+.user * {
+  margin: 0 7px;
+}
