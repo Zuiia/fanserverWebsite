@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {OAuthModule} from "angular-oauth2-oidc";
 import { NavbarComponent } from './navbar/navbar.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 
@@ -17,7 +18,8 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    OAuthModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

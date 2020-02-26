@@ -21,8 +21,9 @@
 }
 
 footer {
-  height: 1000px;
-
+  height: 100px;
+  margin-top: 0px !important;
+  background-color: slategray;
 }
 
 .cards {
@@ -31,8 +32,8 @@ footer {
 }
 
 body,
-.content,
-footer{
+.content
+{
   background-color: darkslategray;
   color: white;
 }
