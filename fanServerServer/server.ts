@@ -72,8 +72,8 @@ app.use(function (req, res, next) {
 app.listen(80, function () {
     console.log('');
     console.log('-------------------------------------------------------------');
-    console.log('                    UserMan Server is running                ');
+    console.log('                    Server is running                        ');
     console.log('-------------------------------------------------------------');
-    console.log('       UserList:      http://localhost:8080                  ');
+    console.log('       Website :      http://localhost:80                    ');
     console.log('-------------------------------------------------------------');
 });
