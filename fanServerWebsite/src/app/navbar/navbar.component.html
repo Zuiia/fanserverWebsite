@@ -1,66 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
-
-  <a class="navbar-brand" href="#" >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
     <img
       width="45"
-      alt="Angular Logo"
+      alt="RWBY Fan Server Logo"
       src="../../assets/gifs/RwbyGifIcon.gif"
     />
+    RWBY Fan Server
   </a>
-  <div class="collapse navbar-collapse">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link">RWBY Fan Server</a>
+        <a class="nav-link" href="#">Introduction</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Server Rules</a>
+        <a class="nav-link" href="#">Events</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link">Reviews and Testimonials</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">Events</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">FAQ</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">Announcements</a>
-      </li>
-    </ul>
-  </div>
-  <div class="buttons form-inline">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <button class="btn btn-danger">
-          Testimonials
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="btn btn-dark">
-          Submit Suggestions
-        </button>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-outline-danger" href="https://discord.gg/MdBKgp2" target="_blank">
-          <b>Join the Server!</b>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          About the Server
         </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Server Rules</a>
+          <a class="dropdown-item" href="#">Reviews and Testimonial</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">FAQ</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://discord.gg/rwbyfanserver" target="_blank">Join the server</a>
       </li>
     </ul>
-
-    <div class="user d-inline-flex">
-      <span class="nav-item">Liz</span>
-
-      <img
-        width="45"
-        alt="Avatar"
-        src="../assets/gifs/LizAvatar.gif"
-      />
-      <button class="btn btn-outline-danger">
-        <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
-      </button>
-    </div>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+    </form>
   </div>
-
-
 </nav>
