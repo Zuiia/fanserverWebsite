@@ -1,1 +1,75 @@
-<p>testimonial-page works!</p>
+<ngb-alert class="cuteAlert center" *ngIf="cuteAlert" >❤️ Thank you very much for your feedback! ❤️</ngb-alert>
+
+<div class="content">
+  <div class="container">
+    <div class="container text center">
+      <h3>Write your own Review!</h3>
+    </div>
+    <div class="center">
+      <button type="button"  class=" btn btn-primary specialbtn" data-toggle="modal" data-target="#addReviewModal">Add Review</button>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addReviewModalTitle">Add a review</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="reviewTitle">Review title</label>
+              <input type="text" class="form-control" id="reviewTitle" placeholder="A title for your review">
+            </div>
+            <div class="form-group">
+              <label for="reviewDescription">Your review: </label>
+              <textarea class="form-control" id="reviewDescription" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="reviewStars">How many stars would you rate the server?</label>
+              <select class="form-control" id="reviewStars">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="launchCuteMessage()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container card-group">
+    <div class="card" *ngFor="let review of reviews">
+      <div class="card-header">
+        <img
+          [src]="review.picture"
+          alt="Useravatar"
+        />
+        <h5 class="card-title d-inline">{{review.title}}</h5>
+      </div>
+      <div class="card-body">
+        <div class="star-container" *ngIf="review.stars==1">⭐☆☆☆☆</div>
+        <div class="star-container" *ngIf="review.stars==2">⭐⭐☆☆☆</div>
+        <div class="star-container" *ngIf="review.stars==3">⭐⭐⭐☆☆</div>
+        <div class="star-container" *ngIf="review.stars==4">⭐⭐⭐⭐☆</div>
+        <div class="star-container" *ngIf="review.stars==5">⭐⭐⭐⭐⭐</div>
+
+        <p class="card-text">{{review.description}}</p>
+
+      </div>
+      <div class="card-footer">
+        <p class="card-text"><small class="text-muted">{{review.created_at}} by {{review.tag}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
