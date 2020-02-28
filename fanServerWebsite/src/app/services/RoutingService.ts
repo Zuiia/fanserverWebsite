@@ -10,7 +10,7 @@ export class RoutingService {
 
   constructor() {
     this.users = [];
-    this.users.push(new User("0", "Zuiia#1234", "Jonsch", "../../assets/pictures/Jonsch.jpg"));
+    this.users.push(new User("0", "Zuiia#1234", "Jonsch", "../../assets/pictures/jonsch.jpg"));
     this.users.push(new User("1", "Alatariel#2933", "Cansch", "../../assets/pictures/Cansch.jpg"));
   }
 
@@ -18,6 +18,8 @@ export class RoutingService {
   public getUserPicture (id: string): string {
     return this.users.find(user => user.id == id).picture;
   }
+
+  // username with descriminator
 
   // provisional. Laterr API call
   public getUserTag (id: string): string {

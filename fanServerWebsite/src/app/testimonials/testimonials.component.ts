@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ReviewService} from "../services/ReviewService";
-import {RoutingService} from "../services/RoutingService";
 import {Review} from "../models/Review";
 
 @Component({
@@ -10,9 +9,9 @@ import {Review} from "../models/Review";
 })
 export class TestimonialsComponent implements OnInit {
 
-  reviews: Review[] = [];
+  reviews: Review[];
 
-  constructor(ReviewService: ReviewService, RoutingService: RoutingService) {
+  constructor(private ReviewService: ReviewService) {
     this.reviews = ReviewService.getReviews();
     console.log(this.reviews);
   }
