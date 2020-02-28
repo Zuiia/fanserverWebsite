@@ -10,8 +10,8 @@ export class RoutingService {
 
   constructor() {
     this.users = [];
-    this.users.push(new User("0", "Zuiia#1234", "Jonsch", "../../assets/pictures/jonsch.jpg"));
-    this.users.push(new User("1", "Alatariel#2933", "Cansch", "../../assets/pictures/Cansch.jpg"));
+    this.users.push(new User("0", "Zuiia#1234", "Jonsch", "https://cdn.discordapp.com/avatars/188968706162819075/a_e5c844bf9997ca0590416fac0b9a237e"));
+    this.users.push(new User("1", "Alatariel#2933", "Cansch", "https://cdn.discordapp.com/avatars/188968706162819075/a_e5c844bf9997ca0590416fac0b9a237e"));
   }
 
   // provisional. Laterr API call
