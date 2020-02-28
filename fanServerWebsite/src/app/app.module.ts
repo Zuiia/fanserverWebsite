@@ -10,12 +10,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import {RoutingService} from "./services/RoutingService";
 import {ReviewService} from "./services/ReviewService";
+import { TestimonialPageComponent } from './testimonial-page/testimonial-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    TestimonialsComponent
+    TestimonialsComponent,
+    TestimonialPageComponent
   ],
   imports: [
     BrowserModule,
