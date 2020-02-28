@@ -2,6 +2,8 @@ import * as express from 'express';
 import * as passport from 'passport';
 import * as bodyParser from "body-parser";
 import * as mongo from 'mongodb';
+import {Review} from "./models/Review";
+import {DeleteWriteOpResultObject, InsertOneWriteOpResult, UpdateWriteOpResult} from "mongodb";
 
 let session = require('express-session');
 let MemoryStore = require('memorystore')(session);
@@ -87,25 +89,93 @@ app.use('/', express.static(`${__dirname}/dist`));
 
 app.get('/login', passport.authenticate('discord', {scope: scopes, successRedirect: '/', failureRedirect:'/fail'}));
 
-// , function (req, res, next) {
-//     console.log("calling /login");
-//     passport.authenticate('discord', function(err, user, info) {
-//         if (err) { return next(err); }
-//         if (!user) { return res.redirect('/login'); }
-//         req.logIn(user, function(err) {
-//             if (err) { return next(err); }
-//             res.send(user);
-//             return res.redirect('/users/' + user.username);
-//         });
-//     })
-// });
-
 app.get('/login/callback',
-    passport.authenticate('discord', { failureRedirect: '/', successRedirect:'/info' })
+    passport.authenticate('discord', { failureRedirect: '/', successRedirect:'/' })
 );
 
+/**
+ * Routes for the reviews
+ */
+
+// get the newest reviews, up to a certain amount
+app.get('/reviews/:num', function (req, res) {
+    dbo.collection("reviews").find({}, {limit: req.params["num"], sort: {_created_at: -1}})
+        .then((result: any[]) => {
+            res.status(200).jsonp({data: result})
+        })
+        .catch((error: mongo.MongoError) => {
+            res.status(500).jsonp({message: 'An Error has occurred. Database Error: ' + error});
+        });
+});
+
+// insert a review into the db
+app.post('/reviews', checkAuth, (req, res) => {
+    let data = req.body.review;
+    let review: Review = new Review(
+        data._userid,
+        data._title,
+        data._description,
+        data._created_at,
+        data._stars
+    );
+
+    dbo.collection("reviews").insertOne(review)
+        .then((result: InsertOneWriteOpResult<any>) => {
+            if (result.insertedCount === 1) {
+                res.status(200).json({message : 'Review inserted.'});
+            } else {
+                res.status(400).json({message : 'Review could not be inserted.'});
+            }
+        })
+        .catch((error: mongo.MongoError) => {
+            res.status(500).jsonp({message: 'An Error has occurred. Database Error: ' + error});
+        });
+});
+
+//TODO: Make sure that you can only edit your own reviews
+app.put('/reviews/:id', checkAuth, (req, res) => {
+    let id = req.params["id"];
+    let data = req.body.review;
+    let review: Review = new Review(
+        data._userid,
+        data._title,
+        data._description,
+        data._created_at,
+        data._stars
+    );
+
+    dbo.collection("reviews").updateOne({_id: id}, {$set: review})
+        .then((result: UpdateWriteOpResult) => {
+            if (result.upsertedCount === 1) {
+                res.status(200).json({message : 'Review updated.'});
+            } else {
+                res.status(400).json({message : 'Review could not be updated.'});
+            }
+        })
+        .catch((error: mongo.MongoError) => {
+            res.status(500).jsonp({message: 'An Error has occurred. Database Error: ' + error});
+        });
+});
+
+//TODO: Make sure that you can only delete your own reviews
+app.delete('/reviews/:id', checkAuth, (req, res) => {
+    let id = req.params["id"];
+
+    dbo.collection("reviews").deleteOne({_id: id})
+        .then((result: DeleteWriteOpResultObject) => {
+            if (result.deletedCount === 1) {
+                res.status(200).json({message : 'Review deleted.'});
+            } else {
+                res.status(400).json({message : 'Review could not be deleted.'});
+            }
+        })
+        .catch((error: mongo.MongoError) => {
+            res.status(500).jsonp({message: 'An Error has occurred. Database Error: ' + error});
+        });
+});
+
 app.get('/info', checkAuth, function(req, res) {
-    res.send(req.user);
+    res.status(200).jsonp({data: req.user});
 });
 
 app.use(function (req, res) {
