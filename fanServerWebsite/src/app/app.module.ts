@@ -11,13 +11,15 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
 import {RoutingService} from "./services/RoutingService";
 import {ReviewService} from "./services/ReviewService";
 import { TestimonialPageComponent } from './testimonial-page/testimonial-page.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TestimonialsComponent,
-    TestimonialPageComponent
+    TestimonialPageComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
