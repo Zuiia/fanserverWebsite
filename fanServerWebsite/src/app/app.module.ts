@@ -8,6 +8,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {OAuthModule} from "angular-oauth2-oidc";
 import { NavbarComponent } from './navbar/navbar.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
+import {RoutingService} from "./services/RoutingService";
+import {ReviewService} from "./services/ReviewService";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { TestimonialsComponent } from './testimonials/testimonials.component';
     NgbModule,
     OAuthModule.forRoot()
   ],
-  providers: [],
+  providers: [RoutingService, ReviewService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
