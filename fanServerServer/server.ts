@@ -3,7 +3,7 @@ import * as passport from 'passport';
 import * as bodyParser from "body-parser";
 import * as mongo from 'mongodb';
 import {Review} from "./models/Review";
-import {DeleteWriteOpResultObject, InsertOneWriteOpResult, UpdateWriteOpResult} from "mongodb";
+import {DeleteWriteOpResultObject, InsertOneWriteOpResult, MongoClient, UpdateWriteOpResult} from "mongodb";
 
 let session = require('express-session');
 let MemoryStore = require('memorystore')(session);
@@ -81,7 +81,7 @@ app.use(session({
  */
 app.use(express.static("public"));
 app.use(session({ secret: "lizisthecutestest" }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -99,8 +99,20 @@ app.get('/login/callback',
 
 // get the newest reviews, up to a certain amount
 app.get('/reviews/:num', function (req, res) {
-    dbo.collection("reviews").find({}, {limit: req.params["num"], sort: {_created_at: -1}})
-        .then((result: any[]) => {
+    let result: any[] = [];
+    dbo.collection("reviews").find({}, {limit: Number.parseInt(req.params["num"]), sort: {_created_at: -1}})
+        .forEach(function ( doc) {
+            let obj: Object = {};
+            obj[doc._id] = new Review(
+                doc.userid,
+                doc.title,
+                doc.description,
+                doc.created_at,
+                doc.stars);
+
+            result.push(obj);
+        })
+        .then(() => {
             res.status(200).jsonp({data: result})
         })
         .catch((error: mongo.MongoError) => {
@@ -109,7 +121,7 @@ app.get('/reviews/:num', function (req, res) {
 });
 
 // insert a review into the db
-app.post('/reviews', checkAuth, (req, res) => {
+app.post('/reviews', (req, res) => {
     let data = req.body.review;
     let review: Review = new Review(
         data._userid,
@@ -133,7 +145,7 @@ app.post('/reviews', checkAuth, (req, res) => {
 });
 
 //TODO: Make sure that you can only edit your own reviews
-app.put('/reviews/:id', checkAuth, (req, res) => {
+app.put('/reviews/:id', (req, res) => {
     let id = req.params["id"];
     let data = req.body.review;
     let review: Review = new Review(
@@ -144,12 +156,12 @@ app.put('/reviews/:id', checkAuth, (req, res) => {
         data._stars
     );
 
-    dbo.collection("reviews").updateOne({_id: id}, {$set: review})
+    dbo.collection("reviews").updateOne({_id: new mongo.ObjectID(id)}, {$set: review})
         .then((result: UpdateWriteOpResult) => {
-            if (result.upsertedCount === 1) {
+            if (result.modifiedCount === 1) {
                 res.status(200).json({message : 'Review updated.'});
             } else {
-                res.status(400).json({message : 'Review could not be updated.'});
+                res.status(400).json({message : 'Review could not be updated.' });
             }
         })
         .catch((error: mongo.MongoError) => {
@@ -158,10 +170,10 @@ app.put('/reviews/:id', checkAuth, (req, res) => {
 });
 
 //TODO: Make sure that you can only delete your own reviews
-app.delete('/reviews/:id', checkAuth, (req, res) => {
+app.delete('/reviews/:id', (req, res) => {
     let id = req.params["id"];
 
-    dbo.collection("reviews").deleteOne({_id: id})
+    dbo.collection("reviews").deleteOne({_id: new mongo.ObjectID(id)})
         .then((result: DeleteWriteOpResultObject) => {
             if (result.deletedCount === 1) {
                 res.status(200).json({message : 'Review deleted.'});
