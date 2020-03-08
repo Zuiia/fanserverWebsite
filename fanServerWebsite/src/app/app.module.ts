@@ -12,6 +12,8 @@ import {RoutingService} from "./services/RoutingService";
 import {ReviewService} from "./services/ReviewService";
 import { TestimonialPageComponent } from './testimonial-page/testimonial-page.component';
 import { HomeComponent } from './home/home.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {URLInterceptor} from "./services/URLInterceptor";
 
 @NgModule({
   declarations: [
@@ -25,9 +27,16 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [RoutingService, ReviewService],
+  providers: [
+    RoutingService,
+    ReviewService,
+    HttpClientModule,
+    AppComponent,
+    {provide: HTTP_INTERCEPTORS, useClass: URLInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

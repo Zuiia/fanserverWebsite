@@ -10,12 +10,15 @@ export class Review {
   private _username: string;
   private _picture: string;
 
-  constructor(userid: string, title: string, description: string, created_at: Date, stars: number) {
+  constructor(userid: string, title: string, description: string, created_at: Date, stars: number,
+              tag?: string, picture?: string) {
     this._userid = userid;
     this._title = title;
     this._description = description;
     this._created_at = created_at;
     this._stars = stars;
+    this._tag = tag;
+    this._picture = picture;
   }
 
 
