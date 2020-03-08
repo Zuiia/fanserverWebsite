@@ -1,5 +1,5 @@
 export class Review {
-  private _id: number;
+  private _id: string;
   private _userid: string;
   private _title: string;
   private _description: string;
@@ -19,11 +19,11 @@ export class Review {
   }
 
 
-  setId(value: number) {
+  setId(value: string) {
     this._id = value;
   }
 
-  getId(): number {
+  getId(): string {
     return this._id;
   }
 

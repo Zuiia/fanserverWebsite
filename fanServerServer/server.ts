@@ -131,6 +131,8 @@ app.post('/reviews', (req, res) => {
         data._stars
     );
 
+    review.setId(review.userid);
+
     dbo.collection("reviews").insertOne(review)
         .then((result: InsertOneWriteOpResult<any>) => {
             if (result.insertedCount === 1) {
