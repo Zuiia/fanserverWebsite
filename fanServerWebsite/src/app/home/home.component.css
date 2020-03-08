@@ -31,13 +31,51 @@ footer {
 
 }
 
-body,
 .content
 {
+  width: 80%;
+  margin: auto;
   background-color: darkslategray;
   color: white;
+  opacity: 1;
 }
 
 .toolbar button {
   margin: 0 5px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+}
+
+.text-img {
+  border-radius: 10px !important;
+}
+
+h3 {
+  overflow: hidden;
+  text-align: center;
+  margin-top: 2em;
+}
+h3:before,
+h3:after {
+  background-color: #fafafa;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+h3:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+h3:after {
+  left: 0.5em;
+  margin-right: -50%;
 }
