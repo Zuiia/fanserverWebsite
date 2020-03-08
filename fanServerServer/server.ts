@@ -85,6 +85,12 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use('/', express.static(`${__dirname}/dist`));
 
 app.get('/login', passport.authenticate('discord', {scope: scopes, successRedirect: '/', failureRedirect:'/fail'}));
@@ -102,15 +108,35 @@ app.get('/reviews/:num', function (req, res) {
     let result: any[] = [];
     dbo.collection("reviews").find({}, {limit: Number.parseInt(req.params["num"]), sort: {_created_at: -1}})
         .forEach(function ( doc) {
-            let obj: Object = {};
-            obj[doc._id] = new Review(
+            let review = new Review(
                 doc.userid,
                 doc.title,
                 doc.description,
                 doc.created_at,
                 doc.stars);
 
-            result.push(obj);
+            result.push(review);
+        })
+        .then(() => {
+            res.status(200).jsonp({data: result})
+        })
+        .catch((error: mongo.MongoError) => {
+            res.status(500).jsonp({message: 'An Error has occurred. Database Error: ' + error});
+        });
+});
+
+app.get('/reviews', function (req, res) {
+    let result: any[] = [];
+    dbo.collection("reviews").find({})
+        .forEach(function ( doc) {
+            let review = new Review(
+                doc.userid,
+                doc.title,
+                doc.description,
+                doc.created_at,
+                doc.stars);
+
+            result.push(review);
         })
         .then(() => {
             res.status(200).jsonp({data: result})
