@@ -35,9 +35,12 @@ footer {
 {
   width: 80%;
   margin: auto;
-  background-color: darkslategray;
-  color: white;
   opacity: 1;
+  padding-top: 100px;
+}
+
+.fadein {
+  background-image: linear-gradient(to top, rgba(265,265,265,1) 80%, rgba(265,265,265,0)  100%);
 }
 
 .toolbar button {
@@ -56,26 +59,10 @@ footer {
   border-radius: 10px !important;
 }
 
+.row {
+  margin: 0 auto;
+}
+
 h3 {
-  overflow: hidden;
-  text-align: center;
-  margin-top: 2em;
-}
-h3:before,
-h3:after {
-  background-color: #fafafa;
-  content: "";
-  display: inline-block;
-  height: 1px;
-  position: relative;
-  vertical-align: middle;
-  width: 50%;
-}
-h3:before {
-  right: 0.5em;
-  margin-left: -50%;
-}
-h3:after {
-  left: 0.5em;
-  margin-right: -50%;
+  line-height: 1.3;
 }
