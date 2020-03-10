@@ -17,10 +17,19 @@ export class TestimonialsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get reviews from MongoDB
     this.ReviewService.getReviews(6)
       .then ((reviewList: Review[]) => {
         this.reviews = reviewList;
-        console.log("Reviews von Route: \n" + this.reviews);
+        // fill with placeholder data
+        for (let review of this.reviews) {
+          if (review.tag == undefined) {
+            review.tag = "Testuser#1337";
+          }
+          if (review.picture == undefined) {
+            review.picture = "https://cdn.discordapp.com/avatars/188968706162819075/a_e5c844bf9997ca0590416fac0b9a237e";
+          }
+        }
       })
   }
 

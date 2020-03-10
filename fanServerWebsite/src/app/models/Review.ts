@@ -3,12 +3,15 @@ export class Review {
   private _userid: string;
   private _title: string;
   private _description: string;
+  private _created_at_display: string;
   private _created_at: Date;
   private _stars: number;
 
   private _tag: string;
   private _username: string;
   private _picture: string;
+
+  private milliseconds: number;
 
   constructor(userid: string, title: string, description: string, created_at: Date, stars: number,
               tag?: string, picture?: string) {
@@ -19,6 +22,9 @@ export class Review {
     this._stars = stars;
     this._tag = tag;
     this._picture = picture;
+    this.milliseconds = Number(created_at.toString());
+    this._created_at_display = this.getDisplayDate();
+
   }
 
 
@@ -74,5 +80,35 @@ export class Review {
 
   set picture(value: string) {
     this._picture = value;
+  }
+
+
+  get created_at_display(): string {
+    return this._created_at_display;
+  }
+
+  set created_at_display(value: string) {
+    this._created_at_display = value;
+  }
+
+  getDisplayDate(): string {
+    let now: Date = new Date();
+    if (this.milliseconds + (1000 * 60 * 60 * 24) > (Date.parse(now.toString()))) {
+      return "Yesterday";
+    }
+    if (this.milliseconds + (1000 * 60 * 60 * 24 * 7) > (Date.parse(now.toString()))) {
+      return "A few days ago";
+    }
+    if (this.milliseconds + (1000 * 60 * 60 * 24 * 14) > (Date.parse(now.toString()))) {
+      return "One week ago";
+    }
+    if (this.milliseconds + (1000 * 60 * 60 * 24 * 30) > (Date.parse(now.toString()))) {
+      return "A few weeks ago";
+    }
+    if (this.milliseconds + (1000 * 60 * 60 * 24 * 32) > (Date.parse(now.toString()))) {
+      return "A month ago";
+    } else {
+      return this._created_at.toDateString();
+    }
   }
 }
