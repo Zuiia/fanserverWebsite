@@ -124,7 +124,7 @@ app.get('/reviews/:num', function (req, res) {
 app.post('/reviews', (req, res) => {
     let data = req.body.review;
     let review: Review = new Review(
-        data._userid,
+        "188968706162819075", // for testing purposes
         data._title,
         data._description,
         data._created_at,

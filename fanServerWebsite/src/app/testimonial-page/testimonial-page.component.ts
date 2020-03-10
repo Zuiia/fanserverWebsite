@@ -17,15 +17,51 @@ export class TestimonialPageComponent implements OnInit {
   reviewTitleValue: string;
   reviewDescriptionValue: string;
   isChecked: boolean = false;
+  stars: string;
   validCB: boolean = true;
   validT: boolean = true;
   validD: boolean = true;
+  validS: boolean = true;
 
   constructor(private ReviewService: ReviewService) {
   }
 
   ngOnInit() {
     // get reviews from MongoDB
+    this.getReviews();
+  }
+
+  saveReview() {
+    this.validCB = this.isChecked;
+    console.log(this.reviewTitleValue);
+    this.validD = (this.reviewDescriptionValue != undefined);
+    this.validT = (this.reviewTitleValue != undefined);
+    this.validS = (this.stars != undefined);
+    console.log(this.stars);
+    console.log(Date.now());
+    console.log(Date.now().toString());
+    if (this.validCB && this.validD && this.validT) {
+      this.publishReview();
+
+    }
+  }
+
+  private publishReview() {
+    let review = new Review(this.reviewTitleValue, this.reviewDescriptionValue, Date.now().toString(), Number(this.stars));
+    this.ReviewService.addReview(review);
+    this.launchCuteMessage();
+    this.closeModal.nativeElement.click();
+    // ToDo: reload reviews
+  }
+
+  launchCuteMessage() {
+    this.cuteAlert = true;
+    setTimeout( () => {
+      this.cuteAlert = false;
+    }, 5000)
+  }
+
+  getReviews() {
     this.ReviewService.getReviews(6)
       .then ((reviewList: Review[]) => {
         this.reviews = reviewList;
@@ -41,26 +77,4 @@ export class TestimonialPageComponent implements OnInit {
       })
   }
 
-  saveReview() {
-    this.validCB = this.isChecked;
-    console.log(this.reviewTitleValue);
-    this.validD = (this.reviewDescriptionValue != undefined);
-    this.validT = (this.reviewTitleValue != undefined);
-    if (this.validCB && this.validD && this.validT) {
-      this.publishReview();
-
-    }
-  }
-
-  private publishReview() {
-    this.launchCuteMessage();
-    this.closeModal.nativeElement.click();
-  }
-
-  launchCuteMessage() {
-    this.cuteAlert = true;
-    setTimeout( () => {
-      this.cuteAlert = false;
-    }, 5000)
-  }
 }

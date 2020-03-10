@@ -4,25 +4,22 @@ export class Review {
    _title: string;
    _description: string;
    _created_at_display: string;
-   _created_at: Date;
+   _created_at: number;
    _stars: number;
 
    _tag: string;
    _username: string;
    _picture: string;
 
-  private milliseconds: number;
-
-  constructor(userid: string, title: string, description: string, created_at: Date, stars: number,
-              tag?: string, picture?: string) {
+  constructor(title: string, description: string, created_at: string, stars: number,
+              userid?: string, tag?: string, picture?: string) {
     this._userid = userid;
     this._title = title;
     this._description = description;
-    this._created_at = created_at;
+    this._created_at = Number(created_at);
     this._stars = stars;
     this._tag = tag;
     this._picture = picture;
-    this.milliseconds = Number(created_at.toString());
     this._created_at_display = this.getDisplayDate();
 
   }
@@ -49,7 +46,7 @@ export class Review {
     return this._description;
   }
 
-  get created_at(): Date {
+  get created_at(): number {
     return this._created_at;
   }
 
@@ -82,33 +79,31 @@ export class Review {
     this._picture = value;
   }
 
-
   get created_at_display(): string {
     return this._created_at_display;
   }
 
-  set created_at_display(value: string) {
-    this._created_at_display = value;
-  }
-
   getDisplayDate(): string {
     let now: Date = new Date();
-    if (this.milliseconds + (1000 * 60 * 60 * 24) > (Date.parse(now.toString()))) {
-      return "Yesterday";
+    if (this._created_at + (1000 * 60 * 60 * 24) > (Date.parse(now.toString()))) {
+      return "Today";
     }
-    if (this.milliseconds + (1000 * 60 * 60 * 24 * 7) > (Date.parse(now.toString()))) {
+    if (this._created_at + (1000 * 60 * 60 * 24 * 2) > (Date.parse(now.toString()))) {
+      return "Today";
+    }
+    if (this._created_at + (1000 * 60 * 60 * 24 * 7) > (Date.parse(now.toString()))) {
       return "A few days ago";
     }
-    if (this.milliseconds + (1000 * 60 * 60 * 24 * 14) > (Date.parse(now.toString()))) {
+    if (this._created_at + (1000 * 60 * 60 * 24 * 14) > (Date.parse(now.toString()))) {
       return "One week ago";
     }
-    if (this.milliseconds + (1000 * 60 * 60 * 24 * 30) > (Date.parse(now.toString()))) {
+    if (this._created_at + (1000 * 60 * 60 * 24 * 30) > (Date.parse(now.toString()))) {
       return "A few weeks ago";
     }
-    if (this.milliseconds + (1000 * 60 * 60 * 24 * 32) > (Date.parse(now.toString()))) {
+    if (this._created_at + (1000 * 60 * 60 * 24 * 32) > (Date.parse(now.toString()))) {
       return "A month ago";
     } else {
-      return this._created_at.toDateString();
+      return new Date(this._created_at).toDateString();
     }
   }
 }

@@ -23,10 +23,17 @@ export class ReviewService {
    * adds a new review
    * @param review new review
    */
-  addReview (review: Review) {
-    review.setId(this.id);
-    this.id++;
-    this.reviews.push(review);
+  public addReview (review: Review): Promise<Review> {
+    return this.httpClient.post(this.serverPath, {review: review})
+      .toPromise()
+      .then(() => {
+        console.log("successfully created review " + review.title);
+        return review;
+      })
+      .catch((error: HttpErrorResponse) => {
+        this.errorMessage = (error.status == 400) ? "Review could not be inserted." : (error.status == 500) ? "An Error has occured. Database Error: " + error : "Uh oh, there was a fucky wucky which Jonsch didn't care to check for >.<";
+        return null;
+      })
   }
 
   /**
@@ -42,7 +49,7 @@ export class ReviewService {
    * @param review new updated version of the Review
    */
   updateReview (review: Review) {
-    this.reviews.filter(rev => rev.getId() == review.getId()).push(review);
+    this.getReviews(6); // ToDo: get all reviews
   }
 
   /**
@@ -64,11 +71,11 @@ export class ReviewService {
         console.log(response.data);
         for (let item of response.data) {
           let review: Review = new Review(
-            item._userid,
             item._title,
             item._description,
             item._created_at,
-            item._stars);
+            item._stars,
+            item._userid);
           reviewList.push(review);
         }
         return reviewList;
@@ -78,4 +85,5 @@ export class ReviewService {
         return null;
       });
   }
+
 }
