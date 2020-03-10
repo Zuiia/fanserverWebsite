@@ -23,11 +23,25 @@
           <form>
             <div class="form-group">
               <label for="reviewTitle">Review title</label>
-              <input type="text" class="form-control" id="reviewTitle" placeholder="A title for your review">
+              <!-- ToDo: change maxlength to correct amount -->
+              <input type="text" class="form-control" id="reviewTitle" name= "reviewTitle" placeholder="A title for your review"
+              required maxlength="15" #reviewTitle="ngModel"
+              [(ngModel)]="reviewTitleValue" >
+              <div *ngIf="reviewTitle.invalid && (reviewTitle.dirty || reviewTitle.touched || !validT)" class="alert alert-danger">
+                <div *ngIf="reviewTitle.errors.required">
+                  You must input a title for your review.
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="reviewDescription">Your review: </label>
-              <textarea class="form-control" id="reviewDescription" rows="4"></textarea>
+              <textarea class="form-control" id="reviewDescription" name="reviewDescription" rows="4"
+                        required #rD="ngModel" [(ngModel)]="reviewDescriptionValue"></textarea>
+              <div *ngIf="rD.invalid && (rD.dirty || rD.touched || !validD)" class="alert alert-danger">
+                <div *ngIf="rD.errors.required">
+                  Please leave a review. It doesn't have to be long :)
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="reviewStars">How many stars would you rate the server?</label>
@@ -39,11 +53,20 @@
                 <option>1</option>
               </select>
             </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="checkPublish" name="isChecked" required [(ngModel)]="isChecked" >
+              <label class="form-check-label" for="checkPublish">I agree to have my discordtag and review displayed on this website.</label>
+              <div *ngIf="!validCB" class="alert alert-danger">
+                <div>
+                  Please agree to this. uwu
+                </div>
+              </div>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"  data-dismiss="modal" (click)="launchCuteMessage()">Save</button>
+          <button type="button" class="btn btn-secondary" #closeModal data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveReview()">Save</button>
         </div>
       </div>
     </div>

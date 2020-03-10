@@ -1,15 +1,15 @@
 export class Review {
   private _id: number;
   private _userid: string;
-  private _title: string;
-  private _description: string;
-  private _created_at_display: string;
-  private _created_at: Date;
-  private _stars: number;
+   _title: string;
+   _description: string;
+   _created_at_display: string;
+   _created_at: Date;
+   _stars: number;
 
-  private _tag: string;
-  private _username: string;
-  private _picture: string;
+   _tag: string;
+   _username: string;
+   _picture: string;
 
   private milliseconds: number;
 

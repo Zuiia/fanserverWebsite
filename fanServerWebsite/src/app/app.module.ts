@@ -14,6 +14,7 @@ import { TestimonialPageComponent } from './testimonial-page/testimonial-page.co
 import { HomeComponent } from './home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {URLInterceptor} from "./services/URLInterceptor";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {URLInterceptor} from "./services/URLInterceptor";
     AppRoutingModule,
     NgbModule,
     OAuthModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     RoutingService,
