@@ -5,11 +5,19 @@ body {
   color: black;
 }
 
+.content
+{
+  width: 80%;
+  margin: auto;
+  opacity: 1;
+}
+
 .fancy {
   overflow: hidden;
   text-align: center;
   margin: 1em 0;
 }
+
 .fancy:before,
 .fancy:after {
   background-color: #000000;
