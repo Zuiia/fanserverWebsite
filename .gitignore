@@ -5,3 +5,4 @@
 /fanServerWebsite/node_modules/*
 /fanServerServer/node_modules/*
 /.idea
+*.js
