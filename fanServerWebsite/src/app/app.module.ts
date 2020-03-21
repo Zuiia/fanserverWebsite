@@ -12,6 +12,9 @@ import {RoutingService} from "./services/RoutingService";
 import {ReviewService} from "./services/ReviewService";
 import { TestimonialPageComponent } from './testimonial-page/testimonial-page.component';
 import { HomeComponent } from './home/home.component';
+import { RulesPageComponent } from './rules-page/rules-page.component';
+import { FaqPageComponent } from './faq-page/faq-page.component';
+import { PatronPageComponent } from './patron-page/patron-page.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { HomeComponent } from './home/home.component';
     NavbarComponent,
     TestimonialsComponent,
     TestimonialPageComponent,
-    HomeComponent
+    HomeComponent,
+    RulesPageComponent,
+    FaqPageComponent,
+    PatronPageComponent
   ],
   imports: [
     BrowserModule,

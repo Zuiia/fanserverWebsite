@@ -31,13 +31,35 @@ footer {
 
 }
 
-body,
 .content
 {
-  background-color: darkslategray;
-  color: white;
+  padding-top: 100px;
+}
+
+.fadein {
+  background-image: linear-gradient(to top, rgba(265,265,265,1) 80%, rgba(265,265,265,0)  100%);
 }
 
 .toolbar button {
   margin: 0 5px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+}
+
+.text-img {
+  border-radius: 10px !important;
+}
+
+.row {
+  margin: 0 auto;
+}
+
+h3 {
+  line-height: 1.3;
 }

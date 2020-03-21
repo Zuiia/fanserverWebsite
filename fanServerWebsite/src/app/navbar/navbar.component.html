@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">
-    <img
+    <!--<img
       width="45"
       alt="RWBY Fan Server Logo"
       src="../../assets/gifs/RwbyGifIcon.gif"
-    />
+    />-->
     RWBY Fan Server
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">Introduction</a>
+        <a class="nav-link" href="home#Introduction">Introduction</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Events</a>
@@ -24,10 +24,10 @@
           About the Server
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Server Rules</a>
+          <a class="dropdown-item" routerLink="/rules" routerLinkActive="active">Server Rules</a>
           <a class="dropdown-item" routerLink="/testimonials" routerLinkActive="active">Reviews and Testimonial</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">FAQ</a>
+          <a class="dropdown-item" routerLink="/faq" routerLinkActive="active">FAQ</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -35,16 +35,19 @@
           Support the Server
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a href="https://www.patreon.com/bePatron?u=27441721" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js%22%3E"></script>
+          <a class="dropdown-item" routerLink="/patrons" routerLinkActive="active">Wall of Generosity</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="https://www.paypal.me/rwbyfanserver">Donate directly</a>
+          <a class="dropdown-item" href="https://www.paypal.me/rwbyfanserver" target="_blank">Donate directly</a>
+          <a class="dropdown-item" href="https://www.patreon.com/bePatron?u=27441721" target="_blank">Become a Patron!</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://discord.gg/rwbyfanserver" target="_blank">Join the server</a>
-      </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">+
+    <form class="form-inline my-2 my-lg-0">
+      <a class="nav-link" href="https://discord.gg/rwbyfanserver" target="_blank">
+        <div class="btn btn-outline-secondary my-2 my-sm-0">
+          Join the server
+        </div>
+      </a>
       <a class="nav-link" href="http://www.rwbyfanserver.com/login" target="_self">
         <div class="btn btn-outline-success my-2 my-sm-0">Login</div>
       </a>

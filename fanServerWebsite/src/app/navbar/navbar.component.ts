@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private viewportScroller: ViewportScroller) { }
 
   ngOnInit() {
   }
@@ -16,5 +17,9 @@ export class NavbarComponent implements OnInit {
   login() {
     console.log("Trying to open login page");
     window.location.href = "http://www.rwbyfanserver.com/login";
+  }
+
+  public onClick(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
   }
 }

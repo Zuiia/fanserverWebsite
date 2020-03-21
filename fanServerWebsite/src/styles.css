@@ -1,4 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
 body {
   margin: 0px;
+  background-color: white;
+  color: black;
 }
+
+.content
+{
+  width: 80%;
+  margin: auto;
+  opacity: 1;
+}
+
+.fancy {
+  overflow: hidden;
+  text-align: center;
+  margin: 1em 0;
+}
+
+.fancy:before,
+.fancy:after {
+  background-color: #000000;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+.fancy:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+.fancy:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+.spacer {
+  margin-bottom: 90px;
+}
+
