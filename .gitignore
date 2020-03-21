@@ -2,3 +2,6 @@
 /fanServerWebsite/out/*
 /fanServerServer/dist/
 /fanServerWebsite/out/
+/fanServerWebsite/node_modules/*
+/fanServerServer/node_modules/*
+/.idea
