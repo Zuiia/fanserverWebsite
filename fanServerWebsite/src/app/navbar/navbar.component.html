@@ -48,9 +48,18 @@
           Join the server
         </div>
       </a>
-      <a class="nav-link" href="http://www.rwbyfanserver.com/login" target="_self">
+      <a class="nav-link" href="http://www.rwbyfanserver.com/login" target="_self" *ngIf="checkLogin()">
         <div class="btn btn-outline-success my-2 my-sm-0">Login</div>
       </a>
+      <div class="container-fluid user" *ngIf="!checkLogin()">
+        <span class="nav-item">{{user.username}}</span>
+
+        <img
+          width="45"
+          alt="User Icon"
+          src="{{user.picture}}"
+        />
+      </div>
     </form>
   </div>
 </nav>

@@ -14,10 +14,11 @@
 
 .user {
   margin-left: 50px;
+  color: rgba(0,0,0,0.5);
 }
 
 .user span {
-  padding: 10px 0;
+  padding-right: 10px;
 }
 
 .user * {

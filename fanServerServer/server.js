@@ -72,6 +72,11 @@ app.use(session({ secret: "lizisthecutestest" }));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use('/', express.static(__dirname + "/dist"));
 app.get('/login', passport.authenticate('discord', { scope: scopes, successRedirect: '/', failureRedirect: '/fail' }));
 app.get('/login/callback', passport.authenticate('discord', { failureRedirect: '/', successRedirect: '/' }));
@@ -83,9 +88,22 @@ app.get('/reviews/:num', function (req, res) {
     var result = [];
     dbo.collection("reviews").find({}, { limit: Number.parseInt(req.params["num"]), sort: { _created_at: -1 } })
         .forEach(function (doc) {
-        var obj = {};
-        obj[doc._id] = new Review_1.Review(doc.userid, doc.title, doc.description, doc.created_at, doc.stars);
-        result.push(obj);
+        var review = new Review_1.Review(doc.userid, doc.title, doc.description, doc.created_at, doc.stars);
+        result.push(review);
+    })
+        .then(function () {
+        res.status(200).jsonp({ data: result });
+    })
+        .catch(function (error) {
+        res.status(500).jsonp({ message: 'An Error has occurred. Database Error: ' + error });
+    });
+});
+app.get('/reviews', function (req, res) {
+    var result = [];
+    dbo.collection("reviews").find({})
+        .forEach(function (doc) {
+        var review = new Review_1.Review(doc.userid, doc.title, doc.description, doc.created_at, doc.stars);
+        result.push(review);
     })
         .then(function () {
         res.status(200).jsonp({ data: result });
@@ -95,10 +113,15 @@ app.get('/reviews/:num', function (req, res) {
     });
 });
 // insert a review into the db
-app.post('/reviews', function (req, res) {
+app.post('/reviews', checkAuth, function (req, res) {
     var data = req.body.review;
-    var review = new Review_1.Review(data._userid, data._title, data._description, data._created_at, data._stars);
-    review.setId(review.userid);
+    var review = new Review_1.Review(
+    // @ts-ignore
+    req.user.data.id, data._title, data._description, data._created_at, data._stars);
+    // @ts-ignore
+    review.setId(req.user.data._id);
+    // @ts-ignore
+    review.picture = "https://cdn.discordapp.com/avatars/" + req.user.data.id + "/" + req.user.data.avatar;
     dbo.collection("reviews").insertOne(review)
         .then(function (result) {
         if (result.insertedCount === 1) {

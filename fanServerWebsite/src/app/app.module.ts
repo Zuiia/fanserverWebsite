@@ -8,13 +8,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {OAuthModule} from "angular-oauth2-oidc";
 import { NavbarComponent } from './navbar/navbar.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
-import {RoutingService} from "./services/RoutingService";
-import {ReviewService} from "./services/ReviewService";
+import { RoutingService } from "./services/RoutingService";
+import { ReviewService } from "./services/ReviewService";
+import { LoginServiceService } from "./services/login-service.service";
 import { TestimonialPageComponent } from './testimonial-page/testimonial-page.component';
 import { HomeComponent } from './home/home.component';
 import { RulesPageComponent } from './rules-page/rules-page.component';
 import { FaqPageComponent } from './faq-page/faq-page.component';
 import { PatronPageComponent } from './patron-page/patron-page.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -31,9 +33,10 @@ import { PatronPageComponent } from './patron-page/patron-page.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [RoutingService, ReviewService],
+  providers: [RoutingService, ReviewService, LoginServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

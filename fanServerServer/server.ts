@@ -1,9 +1,8 @@
 import * as express from 'express';
 import * as passport from 'passport';
-import * as bodyParser from "body-parser";
 import * as mongo from 'mongodb';
+import {DeleteWriteOpResultObject, InsertOneWriteOpResult, UpdateWriteOpResult} from 'mongodb';
 import {Review} from "./models/Review";
-import {DeleteWriteOpResultObject, InsertOneWriteOpResult, MongoClient, UpdateWriteOpResult} from "mongodb";
 
 let session = require('express-session');
 let MemoryStore = require('memorystore')(session);
@@ -147,17 +146,22 @@ app.get('/reviews', function (req, res) {
 });
 
 // insert a review into the db
-app.post('/reviews', (req, res) => {
+app.post('/reviews', checkAuth, (req, res) => {
     let data = req.body.review;
     let review: Review = new Review(
-        data._userid,
+        // @ts-ignore
+        req.user.data.id,
         data._title,
         data._description,
         data._created_at,
         data._stars
     );
 
-    review.setId(review.userid);
+    // @ts-ignore
+    review.setId(req.user.data._id);
+
+    // @ts-ignore
+    review.picture = "https://cdn.discordapp.com/avatars/" + req.user.data.id + "/" + req.user.data.avatar;
 
     dbo.collection("reviews").insertOne(review)
         .then((result: InsertOneWriteOpResult<any>) => {
